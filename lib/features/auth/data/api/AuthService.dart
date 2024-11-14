@@ -6,7 +6,7 @@ import '../models/LoginRequestModel.dart';
 
 class AuthService {
 
-  final String baseUrl = 'https://backend-movil-production.up.railway.app';
+  final String baseUrl = 'https:';
 
   // Registro de usuario
   Future<Map<String, dynamic>> registerUser(UserRegisterModel user) async {
