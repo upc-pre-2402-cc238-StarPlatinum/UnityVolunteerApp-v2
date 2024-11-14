@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/actividades/ActividadModel.dart';
 
 class ActividadService {
-  final String baseUrl = 'https://backend-movil-production.up.railway.app';
+  final String baseUrl = 'https:';
 
   // Método para obtener el organizacionId usando el usuarioId
   Future<int> obtenerOrganizacionId(int usuarioId) async {
