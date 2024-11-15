@@ -6,7 +6,7 @@ import '../models/LoginRequestModel.dart';
 
 class AuthService {
 
-  final String baseUrl = 'https:';
+  final String baseUrl = 'http://192.168.18.64:8080';
 
   // Registro de usuario
   Future<Map<String, dynamic>> registerUser(UserRegisterModel user) async {

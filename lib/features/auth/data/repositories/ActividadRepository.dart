@@ -9,6 +9,10 @@ class ActividadRepository {
     return await _actividadService.obtenerOrganizacionId(usuarioId);
   }
 
+  Future<void> actualizarActividad(int actividadId, ActividadModel actividad) {
+    return _actividadService.actualizarActividad(actividadId, actividad);
+  }
+
   // Método para obtener el voluntarioId usando el usuarioId
   Future<int> obtenerVoluntarioId(int usuarioId) async {
     return await _actividadService.obtenerVoluntarioId(usuarioId);

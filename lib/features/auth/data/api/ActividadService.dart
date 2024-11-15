@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/actividades/ActividadModel.dart';
 
 class ActividadService {
-  final String baseUrl = 'https:';
+  final String baseUrl = 'http://192.168.18.64:8080';
 
   // Método para obtener el organizacionId usando el usuarioId
   Future<int> obtenerOrganizacionId(int usuarioId) async {
@@ -18,6 +18,23 @@ class ActividadService {
       throw Exception('Error al obtener el perfil de organización');
     }
   }
+
+  /********************************************************************************************************/
+  //metodo para actualizar una actividad
+  Future<void> actualizarActividad(int actividadId, ActividadModel actividad) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/actividades/organizacion/editar/$actividadId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(actividad.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar la actividad');
+    }
+  }
+  /*******************************************************************************************************/
 
 // Método para obtener el voluntarioId usando el usuarioId
   Future<int> obtenerVoluntarioId(int usuarioId) async {

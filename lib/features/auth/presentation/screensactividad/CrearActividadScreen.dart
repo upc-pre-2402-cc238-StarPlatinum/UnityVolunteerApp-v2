@@ -28,6 +28,11 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
   List<ActividadModel> _actividades = [];
   late int _organizacionId;
 
+  //***************************************************************
+  bool _isEditing = false;
+  int? _actividadIdEnEdicion;
+  //***************************************************************
+
   @override
   void initState() {
     super.initState();
@@ -90,6 +95,62 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
     }
   }
 
+  //*************************************************************************************************************************
+  Future<void> _actualizarActividad() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final actividad = ActividadModel(
+        id: _actividadIdEnEdicion!,
+        nombre: _nombreController.text.trim(),
+        descripcion: _descripcionController.text.trim(),
+        tipo: _tipoController.text.trim(),
+        lugar: _lugarController.text.trim(),
+        duracion: _duracionController.text.trim(),
+        fecha: _fechaController.text.trim(),
+        hora: _horaController.text.trim(),
+        personasMinimo: int.tryParse(_personasMinimoController.text) ?? 0,
+        personasMaximo: int.tryParse(_personasMaximoController.text) ?? 0,
+        totalPersonasInscritas: 0,
+        organizacionId: _organizacionId,
+      );
+
+      await _actividadRepository.actualizarActividad(_actividadIdEnEdicion!, actividad);
+      _fetchActividades();
+      _limpiarFormulario();
+      setState(() {
+        _isEditing = false;
+        _isFormVisible = false;
+      });
+    } catch (e) {
+      print('Error al actualizar actividad: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _editarActividad(ActividadModel actividad) {
+    setState(() {
+      _isEditing = true;
+      _actividadIdEnEdicion = actividad.id;
+      _nombreController.text = actividad.nombre;
+      _descripcionController.text = actividad.descripcion;
+      _tipoController.text = actividad.tipo;
+      _lugarController.text = actividad.lugar;
+      _duracionController.text = actividad.duracion;
+      _fechaController.text = actividad.fecha;
+      _horaController.text = actividad.hora;
+      _personasMinimoController.text = actividad.personasMinimo.toString();
+      _personasMaximoController.text = actividad.personasMaximo.toString();
+      _isFormVisible = true;
+    });
+  }
+  //****************************************************************************************************************
+
   Future<void> _eliminarActividad(int actividadId) async {
     try {
       await _actividadRepository.eliminarActividad(actividadId);
@@ -109,6 +170,8 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
     _horaController.clear();
     _personasMinimoController.clear();
     _personasMaximoController.clear();
+    _isEditing = false;
+    _actividadIdEnEdicion = null;
   }
 
   Widget _buildFloatingButton() {
@@ -165,7 +228,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
         ),
         const SizedBox(height: 16.0),
         ElevatedButton(
-          onPressed: _isLoading ? null : _crearActividad,
+          onPressed: _isLoading ? null : (_isEditing ? _actualizarActividad : _crearActividad),
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF3894B6),
             padding: EdgeInsets.symmetric(vertical: 14),
@@ -173,7 +236,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
           ),
           child: _isLoading
               ? CircularProgressIndicator(color: Colors.white)
-              : Text('Crear Actividad', style: TextStyle(color: Colors.white)),
+              : Text(_isEditing ? 'Actualizar Actividad' : 'Crear Actividad', style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -243,6 +306,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
                               IconButton(
                                 icon: Icon(Icons.edit, color: Colors.blue),
                                 onPressed: () {
+                                  _editarActividad(actividad);
                                 },
                               ),
                               IconButton(
