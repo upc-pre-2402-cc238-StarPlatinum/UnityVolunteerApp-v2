@@ -18,6 +18,19 @@ class ActividadService {
       throw Exception('Error al obtener el perfil de organización');
     }
   }
+  //*******************************************************************************************************
+  Future<ActividadModel> obtenerActividadPorId(int actividadId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/actividades/$actividadId'),
+    );
+
+    if (response.statusCode == 200) {
+      return ActividadModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error al obtener la actividad');
+    }
+  }
+  //*******************************************************************************************************
 
   /********************************************************************************************************/
   //metodo para actualizar una actividad

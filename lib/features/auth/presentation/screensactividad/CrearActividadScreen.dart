@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/models/actividades/ActividadModel.dart';
 import '../../data/repositories/ActividadRepository.dart';
+import 'NotificacionVoluntarioScreen.dart';
 
 class CrearActividadScreen extends StatefulWidget {
   final int usuarioId;
@@ -118,6 +119,22 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
       );
 
       await _actividadRepository.actualizarActividad(_actividadIdEnEdicion!, actividad);
+
+      await _actividadRepository.actualizarActividad(_actividadIdEnEdicion!, actividad);
+
+      // Generar una notificación dinámica
+      final notificacion = "La actividad '${actividad.nombre}' ha sido actualizada.";
+
+      // Navegar a la pantalla de notificaciones
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NotificacionVoluntarioScreen(
+            notificaciones: [notificacion], // Aquí puedes pasar una lista acumulativa
+          ),
+        ),
+      );
+
       _fetchActividades();
       _limpiarFormulario();
       setState(() {

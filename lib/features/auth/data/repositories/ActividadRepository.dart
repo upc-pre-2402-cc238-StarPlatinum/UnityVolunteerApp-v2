@@ -5,6 +5,11 @@ import '../models/actividades/VoluntarioInscrito.dart';
 class ActividadRepository {
   final ActividadService _actividadService = ActividadService();
 
+
+  Future<ActividadModel> obtenerActividadPorId(int actividadId) {
+    return _actividadService.obtenerActividadPorId(actividadId);
+  }
+
   Future<int> obtenerOrganizacionId(int usuarioId) async {
     return await _actividadService.obtenerOrganizacionId(usuarioId);
   }
