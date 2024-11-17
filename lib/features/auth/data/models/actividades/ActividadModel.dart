@@ -13,6 +13,7 @@ class ActividadModel {
   final String? nombreOrganizacion;
   final String? sitioWeb;
   final int organizacionId;
+  final int puntuationActividad;
 
   ActividadModel({
     required this.id,
@@ -30,6 +31,7 @@ class ActividadModel {
  this.sitioWeb,
 
     required this.organizacionId,
+    required this.puntuationActividad,
 
   });
 
@@ -49,6 +51,7 @@ class ActividadModel {
       nombreOrganizacion: json['organizacion']?['nombreOrganizacion'],
       sitioWeb: json['organizacion']?['sitioWeb'],
       organizacionId: json['organizacionId'],
+      puntuationActividad: json['puntuationActividad'],
     );
   }
 
@@ -68,6 +71,7 @@ class ActividadModel {
       'organizacionId': organizacionId,
       'nombreOrganizacion': nombreOrganizacion,
       'sitioWeb': sitioWeb,
+      'puntuationActividad': puntuationActividad,
     };
   }
 }

@@ -16,6 +16,7 @@ class _VoluntarioScreenState extends State<VoluntarioScreen> {
   final _interesesController = TextEditingController();
   final _experienciaController = TextEditingController();
   final _disponibilidadController = TextEditingController();
+  final _puntuacionController = TextEditingController();
   final AuthRepository _authRepository = AuthRepository();
 
   Future<void> _guardarDatosVoluntario() async {
@@ -25,6 +26,7 @@ class _VoluntarioScreenState extends State<VoluntarioScreen> {
         _interesesController.text,
         _experienciaController.text,
         _disponibilidadController.text,
+        int.tryParse(_puntuacionController.text) ?? 0,
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -93,6 +95,9 @@ class _VoluntarioScreenState extends State<VoluntarioScreen> {
             SizedBox(height: 20),
 
             _buildTextField('Disponibilidad', _disponibilidadController),
+            SizedBox(height: 40),
+
+            _buildTextField('Puntuacion', _puntuacionController),
             SizedBox(height: 40),
 
             ElevatedButton(

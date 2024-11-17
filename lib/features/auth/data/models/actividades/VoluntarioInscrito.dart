@@ -6,6 +6,7 @@ class VoluntarioInscrito {
   final String intereses;
   final String experiencia;
   final String disponibilidad;
+  final int puntuacion;
 
   VoluntarioInscrito({
     required this.id,
@@ -15,6 +16,7 @@ class VoluntarioInscrito {
     required this.intereses,
     required this.experiencia,
     required this.disponibilidad,
+    required this.puntuacion,
   }) {
     print("VoluntarioInscrito creado: $nombre");
   }
@@ -28,6 +30,7 @@ class VoluntarioInscrito {
       intereses: json['intereses'],
       experiencia: json['experiencia'],
       disponibilidad: json['disponibilidad'],
+      puntuacion: json['puntuacion'],
     );
   }
 }

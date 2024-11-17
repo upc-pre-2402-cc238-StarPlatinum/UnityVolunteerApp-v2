@@ -67,7 +67,7 @@ class AuthService {
   }
 
   //actualizar datos del voluntario
-  Future<void> updateVoluntarioData(int usuarioId, String intereses, String experiencia, String disponibilidad) async {
+  Future<void> updateVoluntarioData(int usuarioId, String intereses, String experiencia, String disponibilidad, int puntuacion) async {
     final response = await http.put(
       Uri.parse('$baseUrl/api/usuarios/voluntarios/$usuarioId'),
       headers: <String, String>{
@@ -77,6 +77,7 @@ class AuthService {
         "intereses": intereses,
         "experiencia": experiencia,
         "disponibilidad": disponibilidad,
+        "puntuacion": puntuacion,
       }),
     );
 

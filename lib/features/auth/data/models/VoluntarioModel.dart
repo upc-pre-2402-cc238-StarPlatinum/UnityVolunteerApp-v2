@@ -3,12 +3,14 @@ class VoluntarioModel {
   final String intereses;
   final String experiencia;
   final String disponibilidad;
+  final int puntuacion;
 
   VoluntarioModel({
     required this.usuarioId,
     required this.intereses,
     required this.experiencia,
     required this.disponibilidad,
+    required this.puntuacion,
   });
 
   // Convertir de JSON a modelo de datos
@@ -18,6 +20,7 @@ class VoluntarioModel {
       intereses: json['intereses'],
       experiencia: json['experiencia'],
       disponibilidad: json['disponibilidad'],
+      puntuacion: json['puntuacion'],
     );
   }
 
@@ -28,6 +31,7 @@ class VoluntarioModel {
       'intereses': intereses,
       'experiencia': experiencia,
       'disponibilidad': disponibilidad,
+      'puntuacion': puntuacion,
     };
   }
 }

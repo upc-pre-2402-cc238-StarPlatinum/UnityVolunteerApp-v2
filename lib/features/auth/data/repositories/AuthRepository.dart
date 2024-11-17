@@ -25,9 +25,9 @@ class AuthRepository {
   //actualizar datos del voluntario
 
   Future<void> saveVoluntarioData(int usuarioId, String intereses,
-      String experiencia, String disponibilidad) async {
+      String experiencia, String disponibilidad, int puntuacion) async {
     return await _authService.updateVoluntarioData(
-        usuarioId, intereses, experiencia, disponibilidad);
+        usuarioId, intereses, experiencia, disponibilidad,puntuacion);
   }
 
   // Obtener perfil del voluntario

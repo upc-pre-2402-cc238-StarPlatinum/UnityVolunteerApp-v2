@@ -22,6 +22,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
   final _horaController = TextEditingController();
   final _personasMinimoController = TextEditingController();
   final _personasMaximoController = TextEditingController();
+  final _puntuacionActividadController = TextEditingController();
 
   bool _isLoading = false;
   bool _isFormVisible = false;
@@ -73,6 +74,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
         personasMaximo: int.tryParse(_personasMaximoController.text) ?? 0,
         totalPersonasInscritas: 0,
         organizacionId: _organizacionId,
+        puntuationActividad: int.tryParse(_puntuacionActividadController.text) ?? 0,
       );
 
       await _actividadRepository.crearActividad(actividad);
@@ -109,6 +111,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
     _horaController.clear();
     _personasMinimoController.clear();
     _personasMaximoController.clear();
+    _puntuacionActividadController.clear();
   }
 
   Widget _buildFloatingButton() {
@@ -162,6 +165,11 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
           controller: _personasMaximoController,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(labelText: 'Personas Máximo'),
+        ),
+        TextField(
+            controller: _puntuacionActividadController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(labelText: 'Puntuación de la Actividad'),
         ),
         const SizedBox(height: 16.0),
         ElevatedButton(
@@ -237,6 +245,7 @@ class _CrearActividadScreenState extends State<CrearActividadScreen> {
                           Text("Hora: ${actividad.hora}", style: TextStyle(fontSize: 15)),
                           Text("Personas: ${actividad.personasMinimo} - ${actividad.personasMaximo}", style: TextStyle(fontSize: 15)),
                           Text("Inscritos: ${actividad.totalPersonasInscritas}", style: TextStyle(fontSize: 15)),
+                          Text("Puntuación: ${actividad.puntuationActividad}", style: TextStyle(fontSize: 15)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
