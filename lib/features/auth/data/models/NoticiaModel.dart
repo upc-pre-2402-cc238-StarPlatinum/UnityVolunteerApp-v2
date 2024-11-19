@@ -2,15 +2,15 @@ class NoticiaModel {
   final int id;
   final String titulo;
   final String descripcion;
-  final String fecha;
-  final int actividadId;
+  final String fechaPublicacion;
+  final int organizacionId;
 
   NoticiaModel({
     required this.id,
     required this.titulo,
     required this.descripcion,
-    required this.fecha,
-    required this.actividadId,
+    required this.fechaPublicacion,
+    required this.organizacionId,
   });
 
   factory NoticiaModel.fromJson(Map<String, dynamic> json) {
@@ -18,8 +18,8 @@ class NoticiaModel {
         id: json['id'],
         titulo: json['titulo'],
         descripcion: json['descripcion'],
-        fecha: json['fecha'],
-        actividadId: json['actividadId']
+        fechaPublicacion: json['fechaPublicacion'],
+        organizacionId: json['organizacionId']
     );
   }
 
@@ -28,8 +28,8 @@ class NoticiaModel {
       'id': id,
       'titulo': titulo,
       'descripcion': descripcion,
-      'fecha': fecha,
-      'actividadId': actividadId
+      'fechaPublicacion': fechaPublicacion,
+      'organizacionId': organizacionId
     };
   }
 }

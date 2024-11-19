@@ -6,8 +6,9 @@ import '../models/NoticiaModel.dart';
 class NoticiaRepository {
   final NoticiaService _noticiaService = NoticiaService();
 
-  Future<int> obtenerActividadId(int actividadId) async {
-    return await _noticiaService.obtenerActividadId(actividadId);
+  //Metodo para obtener el organizacionId usando el usuarioId
+  Future<int> obtenerOrganizacionId(int usuarioId) async {
+    return await _noticiaService.obtenerOrganizacionId(usuarioId);
   }
 
   //Metodo para crear una noticia
@@ -15,17 +16,17 @@ class NoticiaRepository {
     try {
       await _noticiaService.crearNoticia(noticia);
       print('Noticia creada con exito en el repositorio');
-    } catch (e) {
-      throw Exception('Error al crear la noticia: $e');
+    } catch(e) {
+      throw Exception('Error al crear noticia: $e');
     }
   }
 
-  //Metodo para listar todas las noticias
+  //Metodo para listar las noticias
   Future<List<NoticiaModel>> listarTodasLasNoticias() async {
     try {
       final noticiasJson = await _noticiaService.listarTodasLasNoticias();
       return noticiasJson.map<NoticiaModel>((json) => NoticiaModel.fromJson(json)).toList();
-    } catch (e) {
+    } catch(e) {
       throw Exception('Error al listar las noticias: $e');
     }
   }

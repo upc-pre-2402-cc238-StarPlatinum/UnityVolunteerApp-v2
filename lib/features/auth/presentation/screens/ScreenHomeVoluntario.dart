@@ -1,3 +1,4 @@
+import 'package:app/features/auth/presentation/screens_noticias/NoticiasScreenVoluntarios.dart';
 import 'package:flutter/material.dart';
 import '../screensactividad/ActividadesProgramadasScreen.dart';
 import '../screensactividad/BuscarActividadesScreen.dart';
@@ -29,7 +30,7 @@ class _HomeVoluntarioState extends State<ScreenHomeVoluntario> {
   void initState() {
     super.initState();
     _Screens = [
-      InicioVoluntarioScreen(nombre: widget.nombre),
+      InicioVoluntarioScreen(nombre: widget.nombre, usuarioId: widget.usuarioId),
       BuscarActividadesScreen(usuarioId: widget.usuarioId),
       ActividadesProgramadasScreen(actividadesProgramadas: _actividadesProgramadas),
       notificacionVoluntarioScreen(), // Pantalla de notificaciones vacía

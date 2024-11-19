@@ -34,7 +34,7 @@ class _HomeOrganizacionState extends State<ScreenHomeOrganizacion> {
       setState(() {
         // Inicializar `_Screens` solo después de obtener `organizacionId`
         _Screens = [
-          InicioOrganizacionScreen(nombre: widget.nombre),
+          InicioOrganizacionScreen(nombre: widget.nombre, usuarioId: widget.usuarioId),
           CrearActividadScreen(usuarioId: widget.usuarioId),
           VoluntariosPorActividadScreen(organizacionId: _organizacionId),
           notificacionOrganizacionScreen() ,// Pantalla de notificaciones vacía
