@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../models/actividades/ActividadModel.dart';
 
 class ActividadService {
-  final String baseUrl = 'http://10.0.2.2:8080';
+  final String baseUrl = 'http://192.168.1.2:8080';
 
   // Método para obtener el organizacionId usando el usuarioId
   Future<int> obtenerOrganizacionId(int usuarioId) async {
