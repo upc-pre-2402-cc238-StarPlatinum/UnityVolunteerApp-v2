@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import '../models/actividades/ActividadModel.dart';
 
 class ActividadService {
-  final String baseUrl = 'http://192.168.1.2:8080';
+  final String baseUrl = 'http://10.0.2.2:8080';
 
   // Método para obtener el organizacionId usando el usuarioId
   Future<int> obtenerOrganizacionId(int usuarioId) async {
@@ -93,17 +94,20 @@ class ActividadService {
 
   // Método para participar en una actividad
   Future<void> participarEnActividad(int actividadId, int voluntarioId) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/api/actividades/voluntario/participar/$actividadId?voluntarioId=$voluntarioId'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print('Participación registrada exitosamente');
-    } else {
-      throw Exception('Error al registrar la participación');
+    try{
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/actividades/voluntario/participar/$actividadId?voluntarioId=$voluntarioId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Participación registrada exitosamente');
+      } else {
+        throw Exception('Error al registrar la participación');
+      }
+    }catch(e){
+      throw Exception(e);
     }
   }
 
