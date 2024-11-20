@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/models/NoticiaModel.dart';
 import '../../data/repositories/NoticiaRepository.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class InicioOrganizacionScreen extends StatefulWidget {
   final String nombre;
@@ -16,6 +17,7 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
   final _noticiaRepository = NoticiaRepository();
   final _tituloController = TextEditingController();
   final _descripcionController = TextEditingController();
+  final _imagenController = TextEditingController();
   final _fechaController = TextEditingController();
 
   bool _isLoading = false;
@@ -59,6 +61,7 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
         id: 0,
         titulo: _tituloController.text.trim(),
         descripcion: _descripcionController.text.trim(),
+        imagenPortada: _imagenController.text.trim(),
         fechaPublicacion: _fechaController.text.trim(),
         organizacionId: _organizacionId,
       );
@@ -81,12 +84,13 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
   void _limpiarFormulario() {
     _tituloController.clear();
     _descripcionController.clear();
+    _imagenController.clear();
     _fechaController.clear();
   }
 
   Widget _buildNoticiasSection() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (_isFormVisible) _buildForm(),
         const SizedBox(height: 16.0),
@@ -98,36 +102,52 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
           itemBuilder: (context, index) {
             final noticia = _noticias[index];
             return Card(
-              elevation: 5,
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              elevation: 20,
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      noticia.titulo,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF333333),
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (noticia.imagenPortada.isNotEmpty)
+                    CachedNetworkImage(
+                      imageUrl: noticia.imagenPortada,
+                      width: 80,
+                      height: 80,
+                      placeholder: (context, url) => CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      noticia.descripcion,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF666666),
-                      ),
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          noticia.titulo,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF333333),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          noticia.descripcion,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF666666),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Fecha de publicación: ${noticia.fechaPublicacion}",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 8),
-                    Text("Fecha de publicación: ${noticia.fechaPublicacion}", style: TextStyle(fontSize: 15)),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },
@@ -153,6 +173,10 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
         TextField(
           controller: _descripcionController,
           decoration: InputDecoration(labelText: 'Descripción de la noticia'),
+        ),
+        TextField(
+          controller: _imagenController,
+          decoration: InputDecoration(labelText: 'Imagen de portada (URL)'),
         ),
         TextField(
           controller: _fechaController,
@@ -277,3 +301,4 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
     );
   }
 }
+
