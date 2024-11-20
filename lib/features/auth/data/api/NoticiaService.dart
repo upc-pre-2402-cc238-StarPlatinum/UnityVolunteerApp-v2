@@ -35,6 +35,32 @@ class NoticiaService {
       throw Exception('Error al crear la noticia');
     }
   }
+  
+  //Metodo para listar actividades por organizacionId
+  Future<List<Map<String, dynamic>>> listarNoticiasPorOrganizacion(int organizacionId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/noticias/organizacion/$organizacionId')
+    );
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      throw Exception('Error al listar las actividades de la organizacion');
+    }
+  }
+
+  //Metodo para eliminar una noticia
+  Future<void> eliminarNoticia(int noticiaId) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/noticias/organizacion/eliminar/$noticiaId'),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      print('Noticia eliminada exitosamente');
+    } else {
+      throw Exception('Error al eliminar la noticia');
+    }
+  }
 
   //Metodo para listar las noticias
   Future<List<Map<String, dynamic>>> listarTodasLasNoticias() async {

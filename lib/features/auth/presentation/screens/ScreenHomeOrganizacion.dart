@@ -1,3 +1,4 @@
+import 'package:app/features/auth/presentation/screens_noticias/GestionNoticiasScreen.dart';
 import 'package:flutter/material.dart';
 import '../screensactividad/CrearActividadScreen.dart';
 import '../screensactividad/NotificacionOrganizacionScreen.dart';
@@ -35,6 +36,7 @@ class _HomeOrganizacionState extends State<ScreenHomeOrganizacion> {
         // Inicializar `_Screens` solo después de obtener `organizacionId`
         _Screens = [
           InicioOrganizacionScreen(nombre: widget.nombre, usuarioId: widget.usuarioId),
+          GestionNoticiasScreen(usuarioId: widget.usuarioId),
           CrearActividadScreen(usuarioId: widget.usuarioId),
           VoluntariosPorActividadScreen(organizacionId: _organizacionId),
           notificacionOrganizacionScreen() ,// Pantalla de notificaciones vacía
@@ -106,6 +108,10 @@ class _HomeOrganizacionState extends State<ScreenHomeOrganizacion> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
             label: 'Inicio',
           ),
           BottomNavigationBarItem(
