@@ -100,31 +100,6 @@ class _PerfilVoluntarioScreenState extends State<PerfilVoluntarioScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Plan Actual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        Divider(color: Colors.grey),
-                        SizedBox(height: 10),
-                        Text('Plan: Básico', style: TextStyle(fontSize: 16)),
-                        SizedBox(height: 10),
-                        TextButton(
-                          onPressed: () {
-                          },
-                          child: Text('Cambiar Plan', style: TextStyle(color: Color(0xFFFF6A00))),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           );
