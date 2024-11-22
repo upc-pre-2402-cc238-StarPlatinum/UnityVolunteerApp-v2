@@ -1,9 +1,11 @@
+import 'package:app/features/auth/presentation/screens/PaymentScreen.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/PerfilOrganizacionModel.dart';
 import '../../data/repositories/AuthRepository.dart';
 
 class PerfilOrganizacionScreen extends StatefulWidget {
   final int usuarioId;
+
 
   PerfilOrganizacionScreen({required this.usuarioId});
 
@@ -13,6 +15,7 @@ class PerfilOrganizacionScreen extends StatefulWidget {
 
 class _PerfilOrganizacionScreenState extends State<PerfilOrganizacionScreen> {
   late Future<PerfilOrganizacionModel> _perfilFuture;
+  bool premium = false;
 
   @override
   void initState() {
@@ -122,6 +125,7 @@ class _PerfilOrganizacionScreenState extends State<PerfilOrganizacionScreen> {
 
                 // Tarjeta del Plan Actual
                 Card(
+
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -134,14 +138,84 @@ class _PerfilOrganizacionScreenState extends State<PerfilOrganizacionScreen> {
                         Text('Plan Actual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         Divider(color: Colors.grey),
                         SizedBox(height: 10),
-                        Text('Plan: Premium', style: TextStyle(fontSize: 16)),
+                        Text((this.premium?'Premium': 'Basic'), style: TextStyle(fontSize: 16)),
                         SizedBox(height: 10),
-                        TextButton(
-                          onPressed: () {
-                            // Acción para cambiar el plan
-                          },
-                          child: Text('Cambiar Plan', style: TextStyle(color: Color(0xFFFF6A00))),
-                        ),
+                        TextButton(onPressed: (){
+                          showDialog(context: context, builder: (BuildContext context){
+                            return AlertDialog(
+                              title: Text("Planes"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Free',
+                                          style: TextStyle(fontWeight: FontWeight.bold)
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(" Comienza a gestionar voluntarios de forma básica con este plan gratuito,"),
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            premium=false;
+                                          });
+                                          Navigator.of(context).pop();
+
+                                          // Acción para cambiar el plan
+                                        },
+                                        child: Text('Cambiarse a Basic', style: TextStyle(color: Color(0xFFFF6A00))),
+                                      ),
+                                    ],
+                                  ),
+                                SizedBox(height: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Premium',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text("Optimiza la gestión de tus voluntarios y coordina tus actividades de forma eficiente"),
+                                TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        if(premium == false){
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => PaymentScreen(
+                                                  onPaymentSuccess: (){
+                                                    setState(() {
+                                                      premium=true;
+                                                    });
+                                                  }
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        // Acción para cambiar el plan
+                                      },
+                                      child: Text(this.premium?'Plan Premium Activo': 'Cambiarse a Premium', style: TextStyle(color: Color(0xFFFF6A00))),
+                                    ),
+                                ],
+                              )],
+                            ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    // Acción para cambiar el plan
+                                  },
+                                  child: Text('Cerrar', style: TextStyle(color: Color(0xFFFF6A00))),
+                                ),
+                              ]
+                            );
+                          });
+                        }, child:Text('Cambiar plan', style: TextStyle(color: Color(0xFFFF6A00))),
+                      )
+
                       ],
                     ),
                   ),
