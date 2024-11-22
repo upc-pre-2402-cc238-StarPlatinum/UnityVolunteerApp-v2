@@ -1,6 +1,7 @@
 import '../api/ActividadService.dart';
 import '../models/actividades/ActividadModel.dart';
 import '../models/actividades/VoluntarioInscrito.dart';
+import '../api/NotificacionService.dart';
 
 class ActividadRepository {
   final ActividadService _actividadService = ActividadService();
@@ -12,6 +13,14 @@ class ActividadRepository {
   // Método para obtener el voluntarioId usando el usuarioId
   Future<int> obtenerVoluntarioId(int usuarioId) async {
     return await _actividadService.obtenerVoluntarioId(usuarioId);
+  }
+
+  Future<List<Map<String, dynamic>>> obtenerNotificaciones(int usuarioId) async {
+    try {
+      return await NotificacionService().obtenerNotificaciones(usuarioId);
+    } catch (e) {
+      throw Exception('Error al obtener las notificaciones: $e');
+    }
   }
 
   // Método para crear una actividad
@@ -45,6 +54,21 @@ class ActividadRepository {
   }
 
 
+  Future<void> actualizarActividad(int actividadId, ActividadModel actividad, int usuarioId) async {
+    try {
+      await _actividadService.actualizarActividad(actividadId, actividad);
+      print('Actividad actualizada con éxito');
+
+      // Crear una notificación después de actualizar la actividad
+      final titulo = 'Actividad Actualizada';
+      final descripcion = 'La actividad "${actividad.nombre}" ha sido modificada.';
+      await NotificacionService().crearNotificacion(titulo, descripcion, usuarioId);
+
+      print('Notificación creada después de actualizar la actividad');
+    } catch (e) {
+      throw Exception('Error al actualizar actividad: $e');
+    }
+  }
 
   // Método para listar todas las actividades
   Future<List<ActividadModel>> listarTodasLasActividades() async {

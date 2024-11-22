@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/NoticiaModel.dart';
 
 class NoticiaService {
-  final String baseUrl = 'http://192.168.1.2:8080';
+  final String baseUrl = 'http://192.168.18.64:8080';
   
   //Metodo para obtener el organizacionId usando el usuarioId
   Future<int> obtenerOrganizacionId(int usuarioId) async {

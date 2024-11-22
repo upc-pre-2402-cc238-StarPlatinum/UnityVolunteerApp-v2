@@ -85,9 +85,8 @@ class _GestionNoticiasScreenState extends State<GestionNoticiasScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            if(noticia.imagenPortada.isNotEmpty)
                               CachedNetworkImage(
-                                imageUrl: noticia.imagenPortada,
+                                imageUrl: noticia.imagenPortada!,
                                 width: 80,
                                 height: 80,
                                 placeholder: (context, url) => CircularProgressIndicator(),

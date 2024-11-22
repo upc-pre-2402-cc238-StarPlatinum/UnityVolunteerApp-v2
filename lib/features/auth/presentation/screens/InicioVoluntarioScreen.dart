@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../data/models/NoticiaModel.dart';
 import '../../data/repositories/NoticiaRepository.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class InicioVoluntarioScreen extends StatefulWidget {
   final String nombre;
@@ -148,42 +150,54 @@ class _InicioVoluntarioScreenState
                     itemBuilder: (context, index) {
                       final noticia = _noticias[index];
                       return Card(
-                        elevation: 5,
+                        elevation: 20,
                         margin: EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 8),
+                            vertical: 20, horizontal: 8),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                noticia.titulo,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF333333),
-                                ),
+                        child: Column (
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: noticia.imagenPortada!,
+                              width: 80,
+                              height: 80,
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    noticia.titulo,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF333333),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    noticia.descripcion,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Color(0xFF666666),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "Fecha de publicación: ${noticia.fechaPublicacion}",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 8),
-                              Text(
-                                noticia.descripcion,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF666666),
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                "Fecha de publicación: ${noticia.fechaPublicacion}",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          ],
+
+                        )
                       );
                     },
                   )
