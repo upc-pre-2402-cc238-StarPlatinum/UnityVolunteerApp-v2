@@ -2,7 +2,7 @@ class NoticiaModel {
   final int id;
   final String titulo;
   final String descripcion;
-  final String imagenPortada;
+  final String? imagenPortada;
   final String fechaPublicacion;
   final int organizacionId;
 

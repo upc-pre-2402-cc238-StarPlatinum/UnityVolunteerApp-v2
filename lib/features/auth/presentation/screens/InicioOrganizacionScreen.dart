@@ -108,11 +108,10 @@ class _InicioOrganizacionScreenState extends State<InicioOrganizacionScreen> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (noticia.imagenPortada.isNotEmpty)
                     CachedNetworkImage(
-                      imageUrl: noticia.imagenPortada,
+                      imageUrl: noticia.imagenPortada!,
                       width: 80,
                       height: 80,
                       placeholder: (context, url) => CircularProgressIndicator(),

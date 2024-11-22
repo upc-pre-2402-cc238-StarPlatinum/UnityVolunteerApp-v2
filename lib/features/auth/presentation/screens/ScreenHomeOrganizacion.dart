@@ -112,7 +112,7 @@ class _HomeOrganizacionState extends State<ScreenHomeOrganizacion> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.newspaper),
-            label: 'Inicio',
+            label: 'Noticias',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline),
