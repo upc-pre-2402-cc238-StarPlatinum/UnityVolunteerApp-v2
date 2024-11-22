@@ -94,6 +94,8 @@ class _PerfilVoluntarioScreenState extends State<PerfilVoluntarioScreen> {
                         _buildPersonalInfoRow(Icons.work_outline, 'Experiencia', perfil.experiencia),
                         SizedBox(height: 10),
                         _buildPersonalInfoRow(Icons.access_time, 'Disponibilidad', perfil.disponibilidad),
+                        SizedBox(height: 10),
+                        _buildPersonalInfoRow(Icons.add_chart_sharp, 'Puntuación acumulada', perfil.puntuacion.toString() ),
                       ],
                     ),
                   ),
@@ -145,4 +147,8 @@ class _PerfilVoluntarioScreenState extends State<PerfilVoluntarioScreen> {
       ],
     );
   }
+}
+
+extension on Map<String, dynamic> {
+  Object? get puntacion => null;
 }
