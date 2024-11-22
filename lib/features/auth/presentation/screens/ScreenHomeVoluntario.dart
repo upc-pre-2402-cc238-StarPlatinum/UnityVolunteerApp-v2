@@ -32,7 +32,7 @@ class _HomeVoluntarioState extends State<ScreenHomeVoluntario> {
       InicioVoluntarioScreen(nombre: widget.nombre, usuarioId: widget.usuarioId),
       BuscarActividadesScreen(usuarioId: widget.usuarioId),
       ActividadesProgramadasScreen(actividadesProgramadas: _actividadesProgramadas),
-      notificacionVoluntarioScreen(), // Pantalla de notificaciones vacía
+      NotificacionVoluntarioScreen(usuarioId: widget.usuarioId), // Pantalla de notificaciones vacía
       PerfilVoluntarioScreen(usuarioId: widget.usuarioId),
     ];
   }
