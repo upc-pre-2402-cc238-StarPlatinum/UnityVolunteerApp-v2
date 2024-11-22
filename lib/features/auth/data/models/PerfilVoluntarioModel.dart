@@ -7,6 +7,7 @@ class PerfilVoluntarioModel {
   final String intereses;
   final String experiencia;
   final String disponibilidad;
+  final int puntuacion;
 
   PerfilVoluntarioModel({
     required this.correo,
@@ -16,6 +17,7 @@ class PerfilVoluntarioModel {
     required this.intereses,
     required this.experiencia,
     required this.disponibilidad,
+    required this.puntuacion
   });
 
   factory PerfilVoluntarioModel.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class PerfilVoluntarioModel {
       intereses: json['intereses'],
       experiencia: json['experiencia'],
       disponibilidad: json['disponibilidad'],
+      puntuacion: json['puntuacion'],
     );
   }
 }
